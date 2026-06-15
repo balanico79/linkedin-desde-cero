@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 02 · Intermedio — LinkedIn desde Cero</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --azul: #0A66C2; --azul-claro: #378FE9; --negro: #0D1117; --negro2: #161B22; --negro3: #21262D;
+    --gris: #8B949E; --gris-claro: #C9D1D9; --blanco: #F0F6FC;
+    --verde: #3FB950; --acento: #3FB950; --acento-glow: rgba(63,185,80,0.12);
+    --naranja: #F78166;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--negro); color: var(--blanco); line-height: 1.7; }
+
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(13,17,23,0.9); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--negro3);
+    padding: 0.9rem 2rem; display: flex; justify-content: space-between; align-items: center;
+  }
+  .logo { font-weight: 800; font-size: 1rem; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--blanco); }
+  .logo-in { background: var(--azul); color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; font-weight: 900; }
+  .nav-modules { display: flex; gap: 0.5rem; }
+  .nav-mod { font-size: 0.78rem; font-weight: 600; padding: 4px 10px; border-radius: 5px; text-decoration: none; color: var(--gris); border: 1px solid var(--negro3); transition: all 0.2s; }
+  .nav-mod:hover { color: var(--blanco); border-color: var(--gris); }
+  .nav-mod.active { background: var(--verde); color: white; border-color: var(--verde); }
+
+  .hero { padding: 7rem 2rem 3rem; max-width: 760px; margin: 0 auto; border-bottom: 1px solid var(--negro3); }
+  .mod-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--acento-glow); color: var(--verde); padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1.2rem; }
+  h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; letter-spacing: -1px; line-height: 1.15; margin-bottom: 1rem; }
+  .hero-desc { font-size: 1rem; color: var(--gris-claro); max-width: 580px; margin-bottom: 2rem; }
+  .hero-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .meta-item { font-size: 0.8rem; color: var(--gris); display: flex; align-items: center; gap: 0.4rem; }
+  .meta-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--verde); display: inline-block; }
+
+  .content { max-width: 760px; margin: 0 auto; padding: 0 2rem 6rem; }
+  .lesson { margin-top: 3.5rem; padding-top: 3.5rem; border-top: 1px solid var(--negro3); }
+  .lesson:first-child { border-top: none; }
+  .lesson-num { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; color: var(--verde); text-transform: uppercase; margin-bottom: 0.4rem; }
+  h2 { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1.2rem; }
+  p { color: var(--gris-claro); margin-bottom: 1rem; font-size: 0.95rem; }
+  h3 { font-size: 1rem; font-weight: 700; color: var(--blanco); margin: 1.2rem 0 0.5rem; }
+
+  .tip { background: var(--negro2); border-left: 3px solid var(--verde); padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+  .tip-label { font-size: 0.7rem; font-weight: 700; color: var(--verde); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .tip p { font-size: 0.875rem; margin: 0; }
+
+  .warning { background: rgba(247,129,102,0.08); border-left: 3px solid var(--naranja); padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+  .warning-label { font-size: 0.7rem; font-weight: 700; color: var(--naranja); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.4rem; }
+
+  .checklist { list-style: none; margin: 1.2rem 0; display: flex; flex-direction: column; gap: 0.6rem; }
+  .checklist li { display: flex; gap: 0.8rem; align-items: flex-start; font-size: 0.9rem; color: var(--gris-claro); }
+  .check { width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid var(--verde); flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: var(--verde); }
+
+  .example-box { background: var(--negro2); border: 1px solid var(--negro3); border-radius: 10px; padding: 1.2rem 1.4rem; margin: 1.5rem 0; }
+  .example-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--verde); margin-bottom: 0.6rem; }
+  .example-text { font-size: 0.875rem; color: var(--blanco); font-style: italic; line-height: 1.6; }
+  .bad-example { border-color: rgba(247,129,102,0.3); }
+  .bad-example .example-label { color: var(--naranja); }
+  .bad-example .example-text { color: var(--gris-claro); }
+
+  .format-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+  .format-card { background: var(--negro2); border: 1px solid var(--negro3); border-radius: 10px; padding: 1rem 1.2rem; }
+  .format-icon { font-size: 1.4rem; margin-bottom: 0.4rem; }
+  .format-name { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .format-desc { font-size: 0.78rem; color: var(--gris); }
+
+  .nav-bottom { display: flex; justify-content: space-between; align-items: center; padding: 2rem; border-top: 1px solid var(--negro3); max-width: 760px; margin: 0 auto; }
+  .nav-btn { text-decoration: none; font-size: 0.875rem; font-weight: 600; color: var(--gris-claro); display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.2rem; border: 1px solid var(--negro3); border-radius: 7px; transition: all 0.2s; }
+  .nav-btn:hover { border-color: var(--verde); color: var(--verde); }
+  .nav-btn.next { background: var(--verde); color: white; border-color: var(--verde); }
+  .nav-btn.next:hover { opacity: 0.85; }
+
+  @media (max-width: 600px) {
+    nav { padding: 0.75rem 1rem; }
+    .nav-modules { display: none; }
+    .hero, .content { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .format-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo"><span class="logo-in">in</span> LinkedIn desde Cero</a>
+  <div class="nav-modules">
+    <a href="modulo-01-inicial.html" class="nav-mod">01 · Inicial</a>
+    <a href="modulo-02-intermedio.html" class="nav-mod active">02 · Intermedio</a>
+    <a href="modulo-03-avanzado.html" class="nav-mod">03 · Avanzado</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="mod-badge">● Módulo 02</div>
+  <h1>Empezás a aparecer</h1>
+  <p class="hero-desc">Construís red, interactuás sin quedar raro y empezás a generar presencia real. Este módulo es donde LinkedIn empieza a funcionar de verdad.</p>
+  <div class="hero-meta">
+    <span class="meta-item"><span class="meta-dot"></span> 7 lecciones</span>
+    <span class="meta-item"><span class="meta-dot"></span> Nivel intermedio</span>
+    <span class="meta-item"><span class="meta-dot"></span> Requiere Módulo 01</span>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- LECCIÓN 1 -->
+  <div class="lesson" id="l1">
+    <div class="lesson-num">Lección 01</div>
+    <h2>Cómo conectar sin sonar desesperado</h2>
+    <p>Mandar solicitudes de conexión masivas sin personalizar es el error más común en LinkedIn. El resultado: muchas personas las ignoran o las rechazan, y eso afecta tu visibilidad en el algoritmo.</p>
+
+    <h3>Con quién conectar primero</h3>
+    <ul class="checklist">
+      <li><span class="check">✓</span>Personas que conocés en persona (trabajo, facultad, eventos)</li>
+      <li><span class="check">✓</span>Personas de tu sector que admitás o seguís</li>
+      <li><span class="check">✓</span>Reclutadores de empresas donde te gustaría trabajar</li>
+      <li><span class="check">✓</span>Personas que comentaron en publicaciones de tu área</li>
+    </ul>
+
+    <div class="tip">
+      <div class="tip-label">💡 Regla práctica</div>
+      <p>Antes de conectar con alguien que no conocés, hacete esta pregunta: ¿hay algo concreto que compartamos o que me haga querer estar en su red? Si la respuesta es sí, conectá. Si es solo "tiene muchos seguidores", no.</p>
+    </div>
+  </div>
+
+  <!-- LECCIÓN 2 -->
+  <div class="lesson" id="l2">
+    <div class="lesson-num">Lección 02</div>
+    <h2>Mensajes de conexión que se leen</h2>
+    <p>LinkedIn te deja agregar una nota al mandar una solicitud (hasta 300 caracteres). Úsala. Las solicitudes sin nota tienen mucho menos tasa de aceptación con desconocidos.</p>
+
+    <div class="example-box bad-example">
+      <div class="example-label">✗ Mensaje genérico (nadie lo lee)</div>
+      <div class="example-text">"Hola, me gustaría agregarle a mi red profesional."</div>
+    </div>
+
+    <div class="example-box">
+      <div class="example-label">✓ Mensaje que genera respuesta</div>
+      <div class="example-text">"Hola [Nombre], vi tu comentario en la publicación de [tema] y me pareció muy acertado. Trabajo en [área similar] y creo que podría ser bueno estar en contacto. Saludos."</div>
+    </div>
+
+    <div class="example-box">
+      <div class="example-label">✓ Mensaje a reclutador</div>
+      <div class="example-text">"Hola [Nombre], vi que trabajás en RRHH en [Empresa]. Soy [cargo] con experiencia en [área] y me interesa mucho el sector. Me gustaría estar en tu red por si surge algo relevante. Gracias."</div>
+    </div>
+
+    <div class="warning">
+      <div class="warning-label">⚠ Nunca hagas esto</div>
+      <p>Mandar el CV en el primer mensaje, pedir trabajo directamente en la nota de conexión, o copiar y pegar el mismo mensaje para todos. Se nota y genera el efecto contrario.</p>
+    </div>
+  </div>
+
+  <!-- LECCIÓN 3 -->
+  <div class="lesson" id="l3">
+    <div class="lesson-num">Lección 03</div>
+    <h2>Qué publicar y cada cuánto</h2>
+    <p>No necesitás publicar todos los días. Publicar poco y bien es mejor que publicar mucho y sin sustancia. Para empezar, una publicación por semana es suficiente.</p>
+
+    <h3>De qué podés hablar</h3>
+    <ul class="checklist">
+      <li><span class="check">✓</span>Algo que aprendiste en tu trabajo o estudio esta semana</li>
+      <li><span class="check">✓</span>Una opinión sobre algo de tu sector</li>
+      <li><span class="check">✓</span>Un error que cometiste y qué aprendiste</li>
+      <li><span class="check">✓</span>Una herramienta o recurso que te resultó útil</li>
+      <li><span class="check">✓</span>Un logro (sin sonar arrogante — contá el proceso, no solo el resultado)</li>
+      <li><span class="check">✓</span>Una reflexión sobre algo que leíste o escuchaste</li>
+    </ul>
+
+    <div class="tip">
+      <div class="tip-label">💡 La primera línea es todo</div>
+      <p>LinkedIn corta el texto después de 2-3 líneas y muestra "ver más". Si la primera línea no engancha, nadie hace click. Empezá con algo concreto, una pregunta, o una afirmación que llame la atención.</p>
+    </div>
+
+    <div class="example-box bad-example">
+      <div class="example-label">✗ Primera línea que no engancha</div>
+      <div class="example-text">"Hoy quiero compartir con ustedes algunas reflexiones sobre mi experiencia laboral de los últimos meses..."</div>
+    </div>
+
+    <div class="example-box">
+      <div class="example-label">✓ Primera línea que para el scroll</div>
+      <div class="example-text">"Perdí un cliente importante. Acá lo que aprendí."</div>
+    </div>
+  </div>
+
+  <!-- LECCIÓN 4 -->
+  <div class="lesson" id="l4">
+    <div class="lesson-num">Lección 04</div>
+    <h2>Formatos: texto, imagen, documento y carrusel</h2>
+    <p>LinkedIn tiene varios formatos de publicación y no todos funcionan igual en el algoritmo.</p>
+
+    <div class="format-grid">
+      <div class="format-card">
+        <div class="format-icon">📝</div>
+        <div class="format-name">Solo texto</div>
+        <div class="format-desc">El más fácil de hacer y funciona bien si el contenido es bueno. Ideal para opiniones, reflexiones y experiencias personales.</div>
+      </div>
+      <div class="format-card">
+        <div class="format-icon">🖼️</div>
+        <div class="format-name">Imagen + texto</div>
+        <div class="format-desc">Funciona cuando la imagen agrega información real. Fotos de eventos, infografías, capturas con contexto.</div>
+      </div>
+      <div class="format-card">
+        <div class="format-icon">📄</div>
+        <div class="format-name">Documento (PDF)</div>
+        <div class="format-desc">Suele tener muy buen alcance. Ideal para guías, listas, recursos o presentaciones de 5-10 páginas.</div>
+      </div>
+      <div class="format-card">
+        <div class="format-icon">🎠</div>
+        <div class="format-name">Carrusel</div>
+        <div class="format-desc">Varias imágenes que se deslizan. Genera mucho engagement. Requiere más diseño pero vale la pena.</div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <div class="tip-label">💡 Para empezar</div>
+      <p>Arrancá con publicaciones de solo texto. Son las más rápidas de hacer y te permiten practicar el contenido sin preocuparte por el diseño.</p>
+    </div>
+  </div>
+
+  <!-- LECCIÓN 5 -->
+  <div class="lesson" id="l5">
+    <div class="lesson-num">Lección 05</div>
+    <h2>Cómo comentar para que te vean</h2>
+    <p>Comentar publicaciones de otros es una de las formas más subestimadas de ganar visibilidad en LinkedIn. Cuando comentás en una publicación con muchas reacciones, tu nombre aparece ante toda esa audiencia.</p>
+
+    <h3>Qué hace un buen comentario</h3>
+    <ul class="checklist">
+      <li><span class="check">✓</span>Agrega algo nuevo a la conversación</li>
+      <li><span class="check">✓</span>Comparte tu experiencia o perspectiva</li>
+      <li><span class="check">✓</span>Hace una pregunta genuina al autor</li>
+      <li><span class="check">✓</span>Tiene al menos 2-3 oraciones (los comentarios largos tienen más peso en el algoritmo)</li>
+    </ul>
+
+    <div class="example-box bad-example">
+      <div class="example-label">✗ Comentario que no aporta nada</div>
+      <div class="example-text">"Excelente post! Muy de acuerdo 👏"</div>
+    </div>
+
+    <div class="example-box">
+      <div class="example-label">✓ Comentario que suma</div>
+      <div class="example-text">"Muy buen punto el de la escucha activa. En mi experiencia trabajando con equipos de ventas, el error más común no es no saber argumentar sino no saber cuándo callarse. ¿Cómo trabajás vos eso en las capacitaciones?"</div>
+    </div>
+
+    <div class="tip">
+      <div class="tip-label">💡 Rutina de 10 minutos por día</div>
+      <p>Abrí LinkedIn, revisá el feed y dejá 3 comentarios de calidad en publicaciones de tu sector. Eso es suficiente para ir ganando visibilidad de forma sostenida.</p>
+    </div>
+  </div>
+
+  <!-- LECCIÓN 6 -->
+  <div class="lesson" id="l6">
+    <div class="lesson-num">Lección 06</div>
+    <h2>Armar tu primera red estratégica de 100 personas</h2>
+    <p>100 conexiones de calidad valen más que 1.000 al azar. Acá cómo llegar a 100 de forma ordenada.</p>
+
+    <h3>De dónde sacar los primeros 100</h3>
+    <ul class="checklist">
+      <li><span class="check">✓</span>Contactos de agenda (LinkedIn te deja importarlos)</li>
+      <li><span class="check">✓</span>Compañeros de trabajo actuales y anteriores</li>
+      <li><span class="check">✓</span>Compañeros de facultad o cursos</li>
+      <li><span class="check">✓</span>Profesores o referentes que conocés</li>
+      <li><span class="check">✓</span>Personas de grupos o eventos de tu sector</li>
+      <li><span class="check">✓</span>Personas cuyo contenido seguís y te parece valioso</li>
+    </ul>
+
+    <div class="tip">
+      <div class="tip-label">💡 El efecto red</div>
+      <p>A partir de 100 conexiones, LinkedIn empieza a sugerirte personas de 2do y 3er grado mucho más relevantes. Es el punto de inflexión donde la red empieza a crecer sola.</p>
+    </div>
+  </div>
+
+  <!-- LECCIÓN 7 -->
+  <div class="lesson" id="l7">
+    <div class="lesson-num">Lección 07</div>
+    <h2>Seguir empresas y referentes de tu sector</h2>
+    <p>Seguir no es lo mismo que conectar. Podés seguir a cualquier persona o empresa sin necesidad de que te acepten. Esto hace que su contenido aparezca en tu feed y te mantiene actualizado.</p>
+
+    <h3>Qué conviene seguir</h3>
+    <ul class="checklist">
+      <li><span class="check">✓</span>Las 5-10 empresas donde te gustaría trabajar o hacer negocios</li>
+      <li><span class="check">✓</span>Referentes de tu sector que publican contenido de valor</li>
+      <li><span class="check">✓</span>Medios especializados de tu industria</li>
+      <li><span class="check">✓</span>Asociaciones o cámaras de tu sector</li>
+    </ul>
+
+    <div class="example-box">
+      <div class="example-label">✓ Checklist de cierre — Módulo 02</div>
+      <div class="example-text" style="font-style:normal;">
+        ☐ 10+ solicitudes enviadas con nota personalizada<br>
+        ☐ Primera publicación hecha (cualquier formato)<br>
+        ☐ 3 comentarios de calidad dejados esta semana<br>
+        ☐ 100 conexiones enviadas o en proceso<br>
+        ☐ 10 empresas de tu sector seguidas<br>
+        ☐ 5 referentes de tu área seguidos<br>
+        ☐ Frecuencia de publicación definida (mínimo 1 por semana)
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="nav-bottom">
+  <a href="modulo-01-inicial.html" class="nav-btn">← Módulo 01</a>
+  <a href="modulo-03-avanzado.html" class="nav-btn next">Módulo 03 →</a>
+</div>
+
+</body>
+</html>
