@@ -6,462 +6,346 @@
 <title>LinkedIn desde Cero — Curso en Módulos</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --azul: #0A66C2;
-    --azul-claro: #378FE9;
-    --azul-glow: rgba(10, 102, 194, 0.25);
-    --negro: #0D1117;
-    --negro2: #161B22;
-    --negro3: #21262D;
-    --gris: #8B949E;
-    --gris-claro: #C9D1D9;
-    --blanco: #F0F6FC;
-    --verde: #3FB950;
-    --naranja: #F78166;
+    --azul: #0A66C2; --azul-claro: #378FE9; --azul-glow: rgba(10,102,194,0.25);
+    --negro: #0D1117; --negro2: #161B22; --negro3: #21262D;
+    --gris: #8B949E; --gris-claro: #C9D1D9; --blanco: #F0F6FC;
+    --verde: #3FB950; --naranja: #F78166;
   }
-
   html { scroll-behavior: smooth; }
+  body { font-family: "Inter", sans-serif; background: var(--negro); color: var(--blanco); line-height: 1.6; }
 
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--negro);
-    color: var(--blanco);
-    line-height: 1.6;
-  }
-
-  /* NAV */
   nav {
     position: fixed; top: 0; width: 100%; z-index: 100;
-    background: rgba(13, 17, 23, 0.85);
-    backdrop-filter: blur(12px);
+    background: rgba(13,17,23,0.88); backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--negro3);
-    padding: 1rem 2rem;
-    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;
   }
-  .logo {
-    font-weight: 800; font-size: 1.1rem; letter-spacing: -0.5px;
-    display: flex; align-items: center; gap: 0.5rem;
-  }
-  .logo-in {
-    background: var(--azul); color: white;
-    padding: 2px 6px; border-radius: 4px;
-    font-size: 0.9rem; font-weight: 900;
-  }
-  .nav-cta {
-    background: var(--azul); color: white;
-    padding: 0.5rem 1.2rem; border-radius: 6px;
-    text-decoration: none; font-weight: 600; font-size: 0.9rem;
-    transition: background 0.2s;
-  }
+  .logo { font-weight: 800; font-size: 1.1rem; letter-spacing: -0.5px; display: flex; align-items: center; gap: 0.5rem; }
+  .logo-in { background: var(--azul); color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.9rem; font-weight: 900; }
+  .nav-cta { background: var(--azul); color: white; padding: 0.5rem 1.2rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: background 0.2s; }
   .nav-cta:hover { background: var(--azul-claro); }
 
-  /* HERO */
   .hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    text-align: center;
-    padding: 8rem 2rem 4rem;
-    position: relative; overflow: hidden;
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+    padding: 8rem 2rem 4rem; position: relative; overflow: hidden;
   }
   .hero::before {
-    content: '';
-    position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
-    width: 600px; height: 600px;
+    content: ""; position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 700px;
     background: radial-gradient(circle, var(--azul-glow) 0%, transparent 70%);
     pointer-events: none;
   }
 
-  /* PROFILE CARD ANIMADA */
-  .profile-card {
-    background: var(--negro2);
-    border: 1px solid var(--negro3);
-    border-radius: 12px;
-    padding: 1.5rem;
-    width: 320px;
-    margin: 0 auto 3rem;
-    text-align: left;
-    position: relative;
+  /* ANTES / DESPUES */
+  .compare-wrap {
+    display: flex; gap: 0.75rem; margin: 0 auto 3rem;
+    width: 100%; max-width: 660px; align-items: stretch;
   }
-  .profile-top {
-    display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1rem;
+  .compare-card { flex: 1; border-radius: 12px; padding: 1.3rem; text-align: left; min-width: 0; }
+  .compare-card.antes { background: rgba(139,148,158,0.06); border: 1px solid var(--negro3); }
+  .compare-card.despues {
+    background: rgba(10,102,194,0.09); border: 1px solid rgba(10,102,194,0.45);
+    box-shadow: 0 0 40px rgba(10,102,194,0.15);
   }
-  .avatar {
-    width: 56px; height: 56px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--azul), var(--azul-claro));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.4rem; font-weight: 900; color: white; flex-shrink: 0;
+  .compare-label {
+    font-size: 0.62rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 1rem; display: flex; align-items: center; gap: 0.4rem;
   }
-  .profile-info { flex: 1; }
-  .profile-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 2px; }
-  .profile-title { font-size: 0.8rem; color: var(--gris); margin-bottom: 4px; }
-  .profile-loc { font-size: 0.75rem; color: var(--gris); }
-  .profile-loc span { color: var(--azul-claro); }
+  .antes .compare-label { color: var(--gris); }
+  .despues .compare-label { color: var(--azul-claro); }
+  .c-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+  .antes .c-dot { background: var(--gris); }
+  .despues .c-dot { background: var(--azul-claro); }
+  .c-avatar-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.85rem; }
+  .c-avatar { width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.8rem; }
+  .antes .c-avatar { background: var(--negro3); color: var(--gris); }
+  .despues .c-avatar { background: linear-gradient(135deg,var(--azul),var(--azul-claro)); color: white; }
+  .c-name { font-size: 0.78rem; font-weight: 700; }
+  .antes .c-name { color: var(--gris); }
+  .despues .c-name { color: var(--blanco); }
+  .c-role { font-size: 0.67rem; margin-top: 1px; }
+  .antes .c-role { color: var(--gris); }
+  .despues .c-role { color: var(--azul-claro); }
+  .c-rows { display: flex; flex-direction: column; gap: 0.55rem; }
+  .c-row-label { font-size: 0.59rem; color: var(--gris); text-transform: uppercase; letter-spacing: 0.5px; }
+  .c-row-val { font-size: 0.75rem; font-weight: 600; margin-top: 1px; }
+  .antes .c-row-val { color: var(--gris); }
+  .despues .c-row-val { color: var(--blanco); }
+  .c-stats { display: flex; gap: 0.4rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--negro3); }
+  .c-stat { flex: 1; text-align: center; }
+  .c-stat-num { font-size: 1rem; font-weight: 900; }
+  .antes .c-stat-num { color: var(--gris); }
+  .despues .c-stat-num { color: var(--verde); }
+  .c-stat-desc { font-size: 0.58rem; color: var(--gris); margin-top: 2px; line-height: 1.3; }
+  .compare-arrow { display: flex; align-items: center; justify-content: center; color: var(--azul-claro); font-size: 1.4rem; flex-shrink: 0; align-self: center; }
 
-  .strength-label {
-    font-size: 0.75rem; font-weight: 600; color: var(--naranja);
-    margin-bottom: 0.5rem;
-  }
-  .bar-row { margin-bottom: 0.6rem; }
-  .bar-label {
-    font-size: 0.7rem; color: var(--gris-claro);
-    display: flex; justify-content: space-between; margin-bottom: 3px;
-  }
-  .bar-track {
-    height: 4px; background: var(--negro3); border-radius: 2px; overflow: hidden;
-  }
-  .bar-fill {
-    height: 100%; border-radius: 2px;
-    background: var(--azul);
-    width: 0%;
-    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .bar-fill.green { background: var(--verde); }
-  .bar-fill.orange { background: var(--naranja); }
-
-  .profile-badge {
-    position: absolute; top: 1rem; right: 1rem;
-    background: var(--azul); color: white;
-    font-size: 0.65rem; font-weight: 700;
-    padding: 3px 8px; border-radius: 20px;
-    letter-spacing: 0.5px;
-  }
-
-  /* HERO TEXT */
-  .hero-eyebrow {
-    font-size: 0.8rem; font-weight: 600; letter-spacing: 2px;
-    color: var(--azul-claro); text-transform: uppercase;
-    margin-bottom: 1rem;
-  }
-  h1 {
-    font-size: clamp(2.2rem, 5vw, 3.8rem);
-    font-weight: 900; line-height: 1.1;
-    letter-spacing: -1.5px;
-    margin-bottom: 1.5rem;
-  }
-  h1 .highlight {
-    color: var(--azul-claro);
-  }
-  .hero-sub {
-    font-size: 1.1rem; color: var(--gris-claro);
-    max-width: 540px; margin: 0 auto 2.5rem;
-    font-weight: 400;
-  }
-  .hero-cta-group {
-    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
-  }
-  .btn-primary {
-    background: var(--azul); color: white;
-    padding: 0.85rem 2rem; border-radius: 8px;
-    text-decoration: none; font-weight: 700; font-size: 1rem;
-    transition: all 0.2s; display: inline-block;
-  }
+  .hero-eyebrow { font-size: 0.8rem; font-weight: 600; letter-spacing: 2px; color: var(--azul-claro); text-transform: uppercase; margin-bottom: 1rem; }
+  h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 1.5rem; }
+  h1 .highlight { color: var(--azul-claro); }
+  .hero-sub { font-size: 1.1rem; color: var(--gris-claro); max-width: 540px; margin: 0 auto 2.5rem; }
+  .hero-cta-group { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .btn-primary { background: var(--azul); color: white; padding: 0.85rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1rem; transition: all 0.2s; display: inline-block; }
   .btn-primary:hover { background: var(--azul-claro); transform: translateY(-1px); }
-  .btn-secondary {
-    background: transparent; color: var(--gris-claro);
-    padding: 0.85rem 2rem; border-radius: 8px;
-    text-decoration: none; font-weight: 600; font-size: 1rem;
-    border: 1px solid var(--negro3);
-    transition: all 0.2s; display: inline-block;
-  }
+  .btn-secondary { background: transparent; color: var(--gris-claro); padding: 0.85rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1rem; border: 1px solid var(--negro3); transition: all 0.2s; display: inline-block; }
   .btn-secondary:hover { border-color: var(--gris); color: var(--blanco); }
 
-  /* STATS */
-  .stats {
-    display: flex; gap: 3rem; justify-content: center;
-    padding: 3rem 2rem;
-    border-top: 1px solid var(--negro3);
-    border-bottom: 1px solid var(--negro3);
-    flex-wrap: wrap;
-  }
+  .stats { display: flex; gap: 3rem; justify-content: center; padding: 3rem 2rem; border-top: 1px solid var(--negro3); border-bottom: 1px solid var(--negro3); flex-wrap: wrap; }
   .stat { text-align: center; }
-  .stat-num {
-    font-size: 2rem; font-weight: 900; color: var(--azul-claro);
-    letter-spacing: -1px;
-  }
+  .stat-num { font-size: 2rem; font-weight: 900; color: var(--azul-claro); letter-spacing: -1px; }
   .stat-label { font-size: 0.8rem; color: var(--gris); margin-top: 2px; }
 
-  /* SECTION */
   section { padding: 5rem 2rem; max-width: 960px; margin: 0 auto; }
-  .section-title {
-    font-size: 0.75rem; font-weight: 700; letter-spacing: 2.5px;
-    color: var(--gris); text-transform: uppercase; margin-bottom: 0.5rem;
-  }
-  h2 {
-    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-    font-weight: 800; letter-spacing: -0.8px; margin-bottom: 3rem;
-    line-height: 1.2;
-  }
+  .section-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 2.5px; color: var(--gris); text-transform: uppercase; margin-bottom: 0.5rem; }
+  h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; letter-spacing: -0.8px; margin-bottom: 3rem; line-height: 1.2; }
 
-  /* MÓDULOS */
   .modules { display: flex; flex-direction: column; gap: 1.5rem; }
-  .module-card {
-    background: var(--negro2);
-    border: 1px solid var(--negro3);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: border-color 0.2s, transform 0.2s;
-    cursor: pointer;
-  }
+  .module-card { background: var(--negro2); border: 1px solid var(--negro3); border-radius: 12px; overflow: hidden; transition: border-color 0.2s, transform 0.2s; cursor: pointer; }
   .module-card:hover { border-color: var(--azul); transform: translateX(4px); }
-  .module-header {
-    padding: 1.5rem 1.5rem 1rem;
-    display: flex; align-items: flex-start; gap: 1.2rem;
-  }
-  .module-num {
-    width: 40px; height: 40px; border-radius: 8px; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 900; font-size: 1rem;
-  }
-  .num-inicial { background: rgba(55, 143, 233, 0.15); color: var(--azul-claro); }
-  .num-intermedio { background: rgba(63, 185, 80, 0.15); color: var(--verde); }
-  .num-avanzado { background: rgba(247, 129, 102, 0.15); color: var(--naranja); }
-
+  .module-header { padding: 1.5rem 1.5rem 1rem; display: flex; align-items: flex-start; gap: 1.2rem; }
+  .module-num { width: 40px; height: 40px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem; }
+  .num-inicial { background: rgba(55,143,233,0.15); color: var(--azul-claro); }
+  .num-intermedio { background: rgba(63,185,80,0.15); color: var(--verde); }
+  .num-avanzado { background: rgba(247,129,102,0.15); color: var(--naranja); }
   .module-meta { flex: 1; }
-  .module-tag {
-    font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px;
-    text-transform: uppercase; margin-bottom: 4px;
-  }
+  .module-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
   .tag-inicial { color: var(--azul-claro); }
   .tag-intermedio { color: var(--verde); }
   .tag-avanzado { color: var(--naranja); }
-
   .module-title-text { font-weight: 700; font-size: 1.05rem; margin-bottom: 4px; }
   .module-desc { font-size: 0.85rem; color: var(--gris); }
   .module-arrow { color: var(--gris); font-size: 1.2rem; align-self: center; }
   .module-card:hover .module-arrow { color: var(--azul-claro); }
-
   .module-body { display: none; padding: 0 1.5rem 1.5rem 4.7rem; }
   .module-body.open { display: block; }
   .topic-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-  .topic-list li {
-    font-size: 0.875rem; color: var(--gris-claro);
-    display: flex; align-items: center; gap: 0.6rem;
-  }
-  .topic-list li::before {
-    content: ''; width: 6px; height: 6px; border-radius: 50%;
-    background: var(--azul); flex-shrink: 0;
-  }
+  .topic-list li { font-size: 0.875rem; color: var(--gris-claro); display: flex; align-items: center; gap: 0.6rem; }
+  .topic-list li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--azul); flex-shrink: 0; }
   .module-card.intermedio .topic-list li::before { background: var(--verde); }
   .module-card.avanzado .topic-list li::before { background: var(--naranja); }
 
-  /* PRICING */
   .pricing-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
   @media (min-width: 640px) { .pricing-grid { grid-template-columns: 1fr 1fr; } }
-
-  .price-card {
-    background: var(--negro2);
-    border: 1px solid var(--negro3);
-    border-radius: 12px; padding: 2rem;
-  }
+  .price-card { background: var(--negro2); border: 1px solid var(--negro3); border-radius: 12px; padding: 2rem; }
   .price-card.featured { border-color: var(--azul); position: relative; }
-  .featured-badge {
-    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-    background: var(--azul); color: white;
-    font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;
-    padding: 4px 14px; border-radius: 20px; text-transform: uppercase;
-  }
+  .featured-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--azul); color: white; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; padding: 4px 14px; border-radius: 20px; text-transform: uppercase; }
   .price-label { font-size: 0.75rem; font-weight: 700; color: var(--gris); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
-  .price-amount {
-    font-size: 2.5rem; font-weight: 900; letter-spacing: -1px;
-    color: var(--blanco); margin-bottom: 0.25rem;
-  }
+  .price-amount { font-size: 2.5rem; font-weight: 900; letter-spacing: -1px; color: var(--blanco); margin-bottom: 0.25rem; }
   .price-amount sup { font-size: 1.2rem; vertical-align: super; }
   .price-sub { font-size: 0.8rem; color: var(--gris); margin-bottom: 1.5rem; }
   .price-features { list-style: none; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 0.6rem; }
   .price-features li { font-size: 0.875rem; color: var(--gris-claro); display: flex; gap: 0.6rem; }
-  .price-features li::before { content: '✓'; color: var(--verde); font-weight: 700; flex-shrink: 0; }
-  .price-btn {
-    display: block; text-align: center; text-decoration: none;
-    padding: 0.75rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem;
-    background: var(--negro3); color: var(--blanco);
-    border: 1px solid var(--negro3); transition: all 0.2s;
-  }
-  .price-card.featured .price-btn {
-    background: var(--azul); border-color: var(--azul); color: white;
-  }
+  .price-features li::before { content: "checkmark"; color: var(--verde); font-weight: 700; flex-shrink: 0; font-size: 0; width: 14px; height: 14px; background: var(--verde); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-top: 3px; }
+  .price-btn { display: block; text-align: center; text-decoration: none; padding: 0.75rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; background: var(--negro3); color: var(--blanco); border: 1px solid var(--negro3); transition: all 0.2s; }
+  .price-card.featured .price-btn { background: var(--azul); border-color: var(--azul); color: white; }
   .price-btn:hover { opacity: 0.85; }
 
-  /* FAQ */
+  /* FORMULARIO */
+  .contact-section { background: var(--negro2); border-top: 1px solid var(--negro3); padding: 5rem 2rem; }
+  .contact-inner { max-width: 540px; margin: 0 auto; text-align: center; }
+  .contact-inner h2 { margin-bottom: 0.75rem; }
+  .contact-inner .sub { color: var(--gris-claro); margin-bottom: 2rem; font-size: 0.95rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.75rem; text-align: left; }
+  .form-group input, .form-group select, .form-group textarea {
+    background: var(--negro); border: 1px solid var(--negro3); border-radius: 8px;
+    padding: 0.8rem 1rem; color: var(--blanco); font-family: "Inter", sans-serif;
+    font-size: 0.9rem; width: 100%; outline: none; transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--azul); }
+  .form-group select option { background: var(--negro2); }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+  .form-submit {
+    background: var(--azul); color: white; border: none; border-radius: 8px;
+    padding: 0.85rem 2rem; font-size: 1rem; font-weight: 700; cursor: pointer;
+    width: 100%; transition: background 0.2s; margin-top: 0.25rem; font-family: "Inter", sans-serif;
+  }
+  .form-submit:hover { background: var(--azul-claro); }
+  .form-note { font-size: 0.76rem; color: var(--gris); margin-top: 0.75rem; }
+
   .faq-list { display: flex; flex-direction: column; gap: 1px; }
-  .faq-item {
-    border-bottom: 1px solid var(--negro3); padding: 1.25rem 0; cursor: pointer;
-  }
-  .faq-q {
-    font-weight: 600; font-size: 0.95rem;
-    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
-  }
+  .faq-item { border-bottom: 1px solid var(--negro3); padding: 1.25rem 0; cursor: pointer; }
+  .faq-q { font-weight: 600; font-size: 0.95rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
   .faq-icon { color: var(--gris); transition: transform 0.2s; flex-shrink: 0; }
   .faq-item.open .faq-icon { transform: rotate(45deg); color: var(--azul-claro); }
   .faq-a { display: none; font-size: 0.875rem; color: var(--gris-claro); margin-top: 0.75rem; }
   .faq-item.open .faq-a { display: block; }
 
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--negro3);
-    padding: 2rem; text-align: center;
-    color: var(--gris); font-size: 0.8rem;
-  }
+  footer { border-top: 1px solid var(--negro3); padding: 2rem; text-align: center; color: var(--gris); font-size: 0.8rem; }
   footer a { color: var(--azul-claro); text-decoration: none; }
 
-  /* RESPONSIVE */
   @media (max-width: 600px) {
     nav { padding: 0.75rem 1rem; }
     .stats { gap: 1.5rem; }
     section { padding: 4rem 1.25rem; }
     .module-body { padding-left: 1.5rem; }
+    .compare-wrap { flex-direction: column; }
+    .compare-arrow { transform: rotate(90deg); }
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <div class="logo">
-    <span class="logo-in">in</span>
-    LinkedIn desde Cero
-  </div>
+  <div class="logo"><span class="logo-in">in</span> LinkedIn desde Cero</div>
   <a href="#precios" class="nav-cta">Ver precios</a>
 </nav>
 
 <!-- HERO -->
 <div class="hero">
-  <!-- Profile Card Animada -->
-  <div class="profile-card" id="profileCard">
-    <span class="profile-badge">Perfil All-Star ⭐</span>
-    <div class="profile-top">
-      <div class="avatar">TU</div>
-      <div class="profile-info">
-        <div class="profile-name">Tu Nombre Aquí</div>
-        <div class="profile-title">Profesional · Sector que elegís</div>
-        <div class="profile-loc">📍 Uruguay · <span>500+ conexiones</span></div>
+  <p class="hero-eyebrow">Curso online &middot; 3 módulos</p>
+  <h1>Aprendé LinkedIn<br><span class="highlight">de una vez por todas.</span></h1>
+  <p class="hero-sub">Pasás de tener un perfil vacío que nadie ve, a uno que te abre puertas — sin vueltas, sin jerga, a tu ritmo.</p>
+
+  <!-- ANTES / DESPUÉS -->
+  <div class="compare-wrap">
+    <div class="compare-card antes">
+      <div class="compare-label"><span class="c-dot"></span> Sin el curso</div>
+      <div class="c-avatar-row">
+        <div class="c-avatar">?</div>
+        <div>
+          <div class="c-name">Perfil sin completar</div>
+          <div class="c-role">Sin foto · Sin titular claro</div>
+        </div>
+      </div>
+      <div class="c-rows">
+        <div>
+          <div class="c-row-label">Titular</div>
+          <div class="c-row-val">"Estudiante universitario"</div>
+        </div>
+        <div>
+          <div class="c-row-label">Extracto</div>
+          <div class="c-row-val">— vacío —</div>
+        </div>
+        <div>
+          <div class="c-row-label">Qué pasa</div>
+          <div class="c-row-val">Los reclutadores no te encuentran</div>
+        </div>
+        <div>
+          <div class="c-row-label">Oportunidades que llegan</div>
+          <div class="c-row-val">Ninguna</div>
+        </div>
       </div>
     </div>
-    <div class="strength-label">Fuerza del perfil</div>
-    <div class="bar-row">
-      <div class="bar-label"><span>Completitud</span><span id="pct1">0%</span></div>
-      <div class="bar-track"><div class="bar-fill" id="bar1" data-target="92"></div></div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label"><span>Visibilidad</span><span id="pct2">0%</span></div>
-      <div class="bar-track"><div class="bar-fill green" id="bar2" data-target="78"></div></div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label"><span>Engagement</span><span id="pct3">0%</span></div>
-      <div class="bar-track"><div class="bar-fill orange" id="bar3" data-target="65"></div></div>
+
+    <div class="compare-arrow">&#8594;</div>
+
+    <div class="compare-card despues">
+      <div class="compare-label"><span class="c-dot"></span> Con el curso</div>
+      <div class="c-avatar-row">
+        <div class="c-avatar">&#10003;</div>
+        <div>
+          <div class="c-name">Perfil claro y completo</div>
+          <div class="c-role">Foto · Titular · Red activa</div>
+        </div>
+      </div>
+      <div class="c-rows">
+        <div>
+          <div class="c-row-label">Titular</div>
+          <div class="c-row-val">"Contador | PYMES | Montevideo"</div>
+        </div>
+        <div>
+          <div class="c-row-label">Extracto</div>
+          <div class="c-row-val">Tu presentación en tus palabras</div>
+        </div>
+        <div>
+          <div class="c-row-label">Qué pasa</div>
+          <div class="c-row-val">Aparecés en búsquedas reales</div>
+        </div>
+        <div>
+          <div class="c-row-label">Oportunidades que llegan</div>
+          <div class="c-row-val">Reclutadores te escriben primero</div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <p class="hero-eyebrow">Curso online · 3 módulos</p>
-  <h1>LinkedIn <span class="highlight">sin adornos.</span><br>Que funcione de verdad.</h1>
-  <p class="hero-sub">Pasás de no saber qué poner en el perfil a tener una presencia profesional que te abre puertas. Sin rodeos, sin jerga.</p>
   <div class="hero-cta-group">
-    <a href="#modulos" class="btn-primary">Ver el programa →</a>
-    <a href="#precios" class="btn-secondary">¿Cuánto cuesta?</a>
+    <a href="#modulos" class="btn-primary">Ver el programa &rarr;</a>
+    <a href="#precios" class="btn-secondary">&#191;Cuánto cuesta?</a>
   </div>
 </div>
 
 <!-- STATS -->
 <div class="stats" style="max-width:960px;margin:0 auto;">
-  <div class="stat">
-    <div class="stat-num">3</div>
-    <div class="stat-label">módulos progresivos</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">+40</div>
-    <div class="stat-label">temas cubiertos</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">100%</div>
-    <div class="stat-label">práctico y aplicable</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">acceso</div>
-    <div class="stat-label">de por vida</div>
-  </div>
+  <div class="stat"><div class="stat-num">87%</div><div class="stat-label">de reclutadores buscan en LinkedIn</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">modulos progresivos</div></div>
+  <div class="stat"><div class="stat-num">100%</div><div class="stat-label">practico y aplicable</div></div>
+  <div class="stat"><div class="stat-num">acceso</div><div class="stat-label">de por vida</div></div>
 </div>
 
-<!-- MÓDULOS -->
+<!-- MODULOS -->
 <section id="modulos">
   <p class="section-title">El programa</p>
   <h2>De cero a visible,<br>paso a paso.</h2>
-
   <div class="modules">
-
-    <!-- MÓDULO 1 -->
     <div class="module-card" onclick="toggleModule(this)">
       <div class="module-header">
         <div class="module-num num-inicial">01</div>
         <div class="module-meta">
           <div class="module-tag tag-inicial">Inicial</div>
-          <div class="module-title-text">Arrancás desde cero</div>
-          <div class="module-desc">Creás la cuenta, entendés la red y armás un perfil que no da vergüenza.</div>
+          <div class="module-title-text">Arrangas desde cero</div>
+          <div class="module-desc">Creas la cuenta, entendes la red y armas un perfil que no da verguenza.</div>
         </div>
-        <div class="module-arrow">›</div>
+        <div class="module-arrow">&rsaquo;</div>
       </div>
       <div class="module-body">
         <ul class="topic-list">
-          <li>Para qué sirve LinkedIn y cómo funciona el algoritmo básico</li>
+          <li>Para que sirve LinkedIn y como funciona el algoritmo basico</li>
           <li>Crear la cuenta paso a paso</li>
-          <li>La foto de perfil: errores comunes y cómo hacerla bien</li>
-          <li>El titular: qué decir en esa línea debajo de tu nombre</li>
-          <li>El extracto (o "Acerca de"): tu presentación en texto</li>
-          <li>Cargá tu experiencia laboral sin aburrirte ni aburrir</li>
-          <li>Educación, habilidades y los primeros 10 contactos</li>
+          <li>La foto de perfil: errores comunes y como hacerla bien</li>
+          <li>El titular: que decir en esa linea debajo de tu nombre</li>
+          <li>El extracto: tu presentacion en texto</li>
+          <li>Cargas tu experiencia laboral sin aburrirte ni aburrir</li>
+          <li>Educacion, habilidades y los primeros 10 contactos</li>
         </ul>
       </div>
     </div>
-
-    <!-- MÓDULO 2 -->
     <div class="module-card intermedio" onclick="toggleModule(this)">
       <div class="module-header">
         <div class="module-num num-intermedio">02</div>
         <div class="module-meta">
           <div class="module-tag tag-intermedio">Intermedio</div>
-          <div class="module-title-text">Empezás a aparecer</div>
-          <div class="module-desc">Construís red, interactuás sin quedar raro y empezás a generar presencia.</div>
+          <div class="module-title-text">Empegas a aparecer</div>
+          <div class="module-desc">Construis red, interactuas sin quedar raro y empegas a generar presencia.</div>
         </div>
-        <div class="module-arrow">›</div>
+        <div class="module-arrow">&rsaquo;</div>
       </div>
       <div class="module-body">
         <ul class="topic-list">
-          <li>Cómo conectar con personas que no conocés (sin sonar desesperado)</li>
-          <li>Mensajes de conexión que se leen</li>
-          <li>Qué publicar y cada cuánto</li>
+          <li>Como conectar con personas que no conoces</li>
+          <li>Mensajes de conexion que se leen</li>
+          <li>Que publicar y cada cuanto</li>
           <li>Formatos: texto, imagen, documento, carrusel</li>
-          <li>Cómo comentar para que te vean (no solo likes)</li>
-          <li>Armar tu primera red estratégica de 100 personas</li>
+          <li>Como comentar para que te vean</li>
+          <li>Armar tu primera red estrategica de 100 personas</li>
           <li>Seguir empresas y referentes de tu sector</li>
         </ul>
       </div>
     </div>
-
-    <!-- MÓDULO 3 -->
     <div class="module-card avanzado" onclick="toggleModule(this)">
       <div class="module-header">
         <div class="module-num num-avanzado">03</div>
         <div class="module-meta">
           <div class="module-tag tag-avanzado">Avanzado</div>
           <div class="module-title-text">LinkedIn que te trabaja</div>
-          <div class="module-desc">Optimizás el perfil para buscadores, activás el modo "abierto a trabajo" y usás LinkedIn para conseguir resultados reales.</div>
+          <div class="module-desc">Optimizas para buscadores, activas Open to Work y conseguis resultados reales.</div>
         </div>
-        <div class="module-arrow">›</div>
+        <div class="module-arrow">&rsaquo;</div>
       </div>
       <div class="module-body">
         <ul class="topic-list">
           <li>SEO en LinkedIn: que te encuentren los reclutadores</li>
-          <li>Modo "Open to Work": cuándo activarlo y cómo</li>
-          <li>Recomendaciones: cómo pedirlas sin incomodar</li>
-          <li>LinkedIn para buscar trabajo: filtros, alertas y postulación</li>
-          <li>LinkedIn para vender o conseguir clientes (sin spamear)</li>
-          <li>Análisis de estadísticas: quién ve tu perfil y qué hacer con eso</li>
-          <li>Errores que destruyen tu credibilidad (y cómo evitarlos)</li>
+          <li>Modo Open to Work: cuando activarlo y como</li>
+          <li>Recomendaciones: como pedirlas sin incomodar</li>
+          <li>LinkedIn para buscar trabajo: filtros, alertas y postulacion</li>
+          <li>LinkedIn para conseguir clientes sin spamear</li>
+          <li>Analisis de estadisticas del perfil</li>
+          <li>Errores que destruyen tu credibilidad</li>
         </ul>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -469,25 +353,25 @@
 <section id="precios" style="background:var(--negro2);max-width:100%;padding:5rem 2rem;">
   <div style="max-width:960px;margin:0 auto;">
     <p class="section-title">Precios</p>
-    <h2>Elegís cuánto querés aprender.</h2>
+    <h2>Eleges cuanto queres aprender.</h2>
     <div class="pricing-grid">
       <div class="price-card">
         <div class="price-label">Módulo Inicial</div>
-        <div class="price-amount"><sup>$</sup>400 <span style="font-size:0.9rem;color:var(--gris);font-weight:500;">UYU</span></div>
-        <div class="price-sub">≈ USD 10 · acceso de por vida</div>
+        <div class="price-amount"><sup>USD</sup> 10</div>
+        <div class="price-sub">Acceso de por vida · Módulo 01</div>
         <ul class="price-features">
           <li>Módulo 01 completo</li>
           <li>Guía de foto de perfil</li>
           <li>Plantilla de titular y extracto</li>
           <li>Soporte por mail 7 días</li>
         </ul>
-        <a href="mailto:tucorreo@mail.com?subject=Quiero el Módulo Inicial" class="price-btn">Quiero este módulo</a>
+        <a href="mailto:nicolasopazo23@gmail.com?subject=Quiero%20el%20M%C3%B3dulo%20Inicial%20%E2%80%94%20LinkedIn%20desde%20Cero&body=Hola%2C%0A%0AQuiero%20comprar%20el%20M%C3%B3dulo%20Inicial%20(USD%2010).%0A%0AMi%20nombre%3A%20%0A%0AQuedo%20a%20la%20espera%20de%20tu%20respuesta%20con%20los%20datos%20para%20el%20pago.%0A%0ASaludos." class="price-btn">Quiero este módulo</a>
       </div>
       <div class="price-card featured">
         <div class="featured-badge">Más completo</div>
         <div class="price-label">Curso completo</div>
-        <div class="price-amount"><sup>$</sup>990 <span style="font-size:0.9rem;color:var(--gris);font-weight:500;">UYU</span></div>
-        <div class="price-sub">≈ USD 25 · los 3 módulos · acceso de por vida</div>
+        <div class="price-amount"><sup>USD</sup> 25</div>
+        <div class="price-sub">Los 3 módulos · Acceso de por vida</div>
         <ul class="price-features">
           <li>Módulos 01, 02 y 03</li>
           <li>Todas las plantillas incluidas</li>
@@ -495,14 +379,36 @@
           <li>Soporte por mail 30 días</li>
           <li>Actualizaciones futuras incluidas</li>
         </ul>
-        <a href="mailto:tucorreo@mail.com?subject=Quiero el Curso Completo" class="price-btn">Quiero el curso completo</a>
+        <a href="mailto:nicolasopazo23@gmail.com?subject=Quiero%20el%20Curso%20Completo%20%E2%80%94%20LinkedIn%20desde%20Cero&body=Hola%2C%0A%0AQuiero%20comprar%20el%20Curso%20Completo%20(USD%2025%2C%20los%203%20m%C3%B3dulos).%0A%0AMi%20nombre%3A%20%0A%0AQuedo%20a%20la%20espera%20de%20tu%20respuesta%20con%20los%20datos%20para%20el%20pago.%0A%0ASaludos." class="price-btn">Quiero el curso completo</a>
       </div>
     </div>
     <p style="text-align:center;color:var(--gris);font-size:0.8rem;margin-top:1.5rem;">
-      Pagás por transferencia o MercadoPago. Te mando acceso en menos de 24hs.
+      Hace click en el boton &rarr; se abre un mail ya redactado &rarr; lo enviAs &rarr; te respondo con los datos de pago en menos de 24hs.
     </p>
   </div>
 </section>
+
+<!-- FORMULARIO DE CONTACTO -->
+<div class="contact-section" id="contacto">
+  <div class="contact-inner">
+    <p class="section-title" style="text-align:center;">Consultas</p>
+    <h2 style="margin-bottom:0.75rem;">&#191;Tenes alguna duda?</h2>
+    <p class="sub">Completa el formulario y te respondo a la brevedad con toda la info que necesites.</p>
+    <form action="https://formspree.io/f/xqeonvgr" method="POST" class="form-group">
+      <input type="text" name="nombre" placeholder="Tu nombre" required>
+      <input type="email" name="email" placeholder="Tu email" required>
+      <select name="interes" required>
+        <option value="" disabled selected>Que te interesa...</option>
+        <option value="modulo-inicial">Módulo Inicial (USD 10)</option>
+        <option value="curso-completo">Curso Completo (USD 25)</option>
+        <option value="consulta">Solo tengo una consulta</option>
+      </select>
+      <textarea name="mensaje" placeholder="Contame en que puedo ayudarte (opcional)"></textarea>
+      <button type="submit" class="form-submit">Enviar consulta &rarr;</button>
+    </form>
+    <p class="form-note">Te respondo en menos de 24hs a tu email con los metodos de pago disponibles.</p>
+  </div>
+</div>
 
 <!-- FAQ -->
 <section>
@@ -510,24 +416,20 @@
   <h2>Las dudas de siempre.</h2>
   <div class="faq-list">
     <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">¿Necesito saber algo de antemano? <span class="faq-icon">+</span></div>
-      <div class="faq-a">No. El curso empieza desde cero absoluto. Si nunca abriste LinkedIn, este es el lugar para empezar. Si ya tenés perfil pero querés mejorarlo, el módulo intermedio y avanzado son para vos.</div>
+      <div class="faq-q">Necesito saber algo de antemano? <span class="faq-icon">+</span></div>
+      <div class="faq-a">No. El curso empieza desde cero absoluto. Si nunca abriste LinkedIn, este es el lugar para empezar. Si ya tenes perfil pero queres mejorarlo, el modulo intermedio y avanzado son para vos.</div>
     </div>
     <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">¿Es un PDF, un video, qué recibo? <span class="faq-icon">+</span></div>
-      <div class="faq-a">Por ahora el curso es en formato PDF bien estructurado, con capturas de pantalla, ejemplos reales y plantillas listas para usar. Fácil de leer en la compu o el celu.</div>
+      <div class="faq-q">Que pasa despues de que pago? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Hace click en el boton del plan que elegiste, se abre un mail ya redactado, lo enviAs y te respondo a la brevedad con los metodos de pago disponibles y los pasos para acceder al curso.</div>
     </div>
     <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">¿Qué pasa después de que pago? <span class="faq-icon">+</span></div>
-      <div class="faq-a">Me mandás el comprobante al mail, te armo un usuario y en menos de 24 horas tenés acceso al material. Si tenés alguna duda, respondemos por mail.</div>
+      <div class="faq-q">Tiene fecha de vencimiento el acceso? <span class="faq-icon">+</span></div>
+      <div class="faq-a">No. Una vez que compras, el acceso es tuyo para siempre. Y si actualizamos el contenido, tambien lo recibes sin costo adicional.</div>
     </div>
     <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">¿Tiene fecha de vencimiento el acceso? <span class="faq-icon">+</span></div>
-      <div class="faq-a">No. Una vez que comprás, el acceso es tuyo para siempre. Y si actualizamos el contenido, también lo recibís sin costo adicional.</div>
-    </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">¿Sirve si estoy buscando trabajo activamente? <span class="faq-icon">+</span></div>
-      <div class="faq-a">Sí, especialmente el módulo avanzado está pensado para eso: cómo aparecer en búsquedas de reclutadores, configurar alertas de empleo y postularte de forma efectiva.</div>
+      <div class="faq-q">Sirve si estoy buscando trabajo activamente? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Si, especialmente el modulo avanzado esta pensado para eso: como aparecer en busquedas de reclutadores, configurar alertas de empleo y postularte de forma efectiva.</div>
     </div>
   </div>
 </section>
@@ -535,44 +437,21 @@
 <!-- CTA FINAL -->
 <section style="text-align:center;padding-bottom:6rem;">
   <h2 style="font-size:clamp(1.8rem,4vw,2.8rem);">Tu perfil de LinkedIn<br>puede estar funcionando esta semana.</h2>
-  <p style="color:var(--gris-claro);margin-bottom:2rem;font-size:1rem;">Sin excusas, sin vueltas. Empezá cuando quieras.</p>
-  <a href="#precios" class="btn-primary" style="font-size:1.05rem;padding:1rem 2.5rem;">Empezar ahora →</a>
+  <p style="color:var(--gris-claro);margin-bottom:2rem;font-size:1rem;">Sin excusas, sin vueltas. Empegas cuando quieras.</p>
+  <a href="#precios" class="btn-primary" style="font-size:1.05rem;padding:1rem 2.5rem;">Empezar ahora &rarr;</a>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <p>LinkedIn desde Cero &nbsp;·&nbsp; <a href="mailto:tucorreo@mail.com">tucorreo@mail.com</a></p>
-  <p style="margin-top:0.5rem;">Hecho con ganas desde Uruguay 🇺🇾</p>
+  <p>LinkedIn desde Cero &nbsp;&middot;&nbsp; <a href="mailto:nicolasopazo23@gmail.com">Contacto</a></p>
+  <p style="margin-top:0.5rem;">Hecho con ganas desde Uruguay &#127482;&#127486;</p>
 </footer>
 
 <script>
-  // Animar barras al cargar
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      ['bar1','bar2','bar3'].forEach((id, i) => {
-        const bar = document.getElementById(id);
-        const pct = document.getElementById('pct' + (i+1));
-        const target = parseInt(bar.dataset.target);
-        bar.style.width = target + '%';
-        let current = 0;
-        const interval = setInterval(() => {
-          current = Math.min(current + 2, target);
-          pct.textContent = current + '%';
-          if (current >= target) clearInterval(interval);
-        }, 20);
-      });
-    }, 400);
-  });
-
-  // Toggle módulos
   function toggleModule(card) {
-    const body = card.querySelector('.module-body');
-    body.classList.toggle('open');
+    card.querySelector(".module-body").classList.toggle("open");
   }
-
-  // Toggle FAQ
   function toggleFaq(item) {
-    item.classList.toggle('open');
+    item.classList.toggle("open");
   }
 </script>
 </body>

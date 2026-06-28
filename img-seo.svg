@@ -1,0 +1,28 @@
+<svg viewBox="0 0 480 230" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Arial,sans-serif">
+  <rect width="480" height="230" fill="#161B22" rx="12"/>
+  <text x="24" y="36" fill="#8B949E" font-size="11" font-weight="700" letter-spacing="1">SEO EN LINKEDIN — DÓNDE PONER LAS PALABRAS CLAVE</text>
+  <!-- Buscador simulado -->
+  <rect x="24" y="48" width="432" height="34" fill="#0D1117" rx="8" stroke="#30363D" stroke-width="1"/>
+  <text x="44" y="58" fill="#8B949E" font-size="10">🔍</text>
+  <text x="58" y="69" fill="#C9D1D9" font-size="12">"contador PYMES Montevideo"</text>
+  <rect x="400" y="56" width="48" height="20" fill="#0A66C2" rx="5"/>
+  <text x="424" y="70" text-anchor="middle" fill="white" font-size="10" font-weight="700">Buscar</text>
+  <!-- Resultado que aparece -->
+  <rect x="24" y="94" width="432" height="70" fill="rgba(10,102,194,0.08)" rx="8" stroke="rgba(10,102,194,0.3)" stroke-width="1"/>
+  <circle cx="52" cy="124" r="20" fill="#378FE9"/>
+  <text x="52" y="129" text-anchor="middle" fill="white" font-size="11" font-weight="900">TU</text>
+  <text x="84" y="112" fill="#F0F6FC" font-size="13" font-weight="700">Tu Nombre</text>
+  <text x="84" y="128" fill="#C9D1D9" font-size="10">Contador | PYMES | Facturación electrónica | Montevideo</text>
+  <rect x="84" y="138" width="55" height="16" fill="rgba(63,185,80,0.15)" rx="8"/>
+  <text x="111" y="150" text-anchor="middle" fill="#3FB950" font-size="9" font-weight="700">● Conectar</text>
+  <!-- Etiquetas de keywords -->
+  <text x="24" y="182" fill="#8B949E" font-size="10" font-weight="700">Palabras clave que funcionan en tu sector:</text>
+  <rect x="24" y="192" width="78" height="20" fill="#21262D" rx="10"/>
+  <text x="63" y="206" text-anchor="middle" fill="#C9D1D9" font-size="10">contador</text>
+  <rect x="110" y="192" width="60" height="20" fill="#21262D" rx="10"/>
+  <text x="140" y="206" text-anchor="middle" fill="#C9D1D9" font-size="10">PYMES</text>
+  <rect x="178" y="192" width="105" height="20" fill="#21262D" rx="10"/>
+  <text x="230" y="206" text-anchor="middle" fill="#C9D1D9" font-size="10">Montevideo</text>
+  <rect x="291" y="192" width="130" height="20" fill="#21262D" rx="10"/>
+  <text x="356" y="206" text-anchor="middle" fill="#C9D1D9" font-size="10">facturación electrónica</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Arial,sans-serif">
+  <rect width="480" height="280" fill="#161B22" rx="12"/>
+  <!-- Header gris LinkedIn -->
+  <rect width="480" height="72" fill="#21262D" rx="12"/>
+  <rect y="60" width="480" height="12" fill="#21262D"/>
+  <!-- Avatar vacío -->
+  <circle cx="60" cy="95" r="40" fill="#21262D" stroke="#30363D" stroke-width="2"/>
+  <text x="60" y="100" text-anchor="middle" fill="#8B949E" font-size="24" font-weight="700">?</text>
+  <!-- Nombre en gris (sin completar) -->
+  <rect x="115" y="78" width="160" height="14" fill="#30363D" rx="4"/>
+  <rect x="115" y="100" width="220" height="10" fill="#21262D" rx="3"/>
+  <rect x="115" y="118" width="140" height="10" fill="#21262D" rx="3"/>
+  <!-- Badge sin foto -->
+  <rect x="340" y="78" width="110" height="22" fill="#30363D" rx="11"/>
+  <text x="395" y="93" text-anchor="middle" fill="#8B949E" font-size="10" font-weight="600">Sin foto</text>
+  <!-- Separador -->
+  <line x1="24" y1="150" x2="456" y2="150" stroke="#21262D" stroke-width="1"/>
+  <!-- Sección extracto vacía -->
+  <text x="24" y="172" fill="#8B949E" font-size="11" font-weight="700">Acerca de</text>
+  <rect x="24" y="182" width="432" height="10" fill="#21262D" rx="3"/>
+  <rect x="24" y="198" width="300" height="10" fill="#21262D" rx="3"/>
+  <text x="24" y="228" fill="#8B949E" font-size="11" font-weight="700">Experiencia</text>
+  <rect x="24" y="238" width="432" height="10" fill="#21262D" rx="3"/>
+  <!-- Tag error -->
+  <rect x="24" y="258" width="200" height="16" fill="rgba(247,129,102,0.12)" rx="4" stroke="rgba(247,129,102,0.3)" stroke-width="1"/>
+  <text x="124" y="270" text-anchor="middle" fill="#F78166" font-size="10" font-weight="600">⚠ Perfil incompleto — no aparecés en búsquedas</text>
+</svg>

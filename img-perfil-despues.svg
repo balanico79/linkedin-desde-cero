@@ -1,0 +1,28 @@
+<svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Arial,sans-serif">
+  <rect width="480" height="280" fill="#161B22" rx="12"/>
+  <!-- Header azul -->
+  <rect width="480" height="72" fill="#0A66C2" rx="12"/>
+  <rect y="60" width="480" height="12" fill="#0A66C2"/>
+  <!-- Avatar con foto -->
+  <circle cx="60" cy="95" r="40" fill="#378FE9" stroke="#0D1117" stroke-width="3"/>
+  <text x="60" y="102" text-anchor="middle" fill="white" font-size="22" font-weight="900">TU</text>
+  <!-- Nombre y datos -->
+  <text x="115" y="90" fill="#F0F6FC" font-size="15" font-weight="800">Nicolás Pazo</text>
+  <text x="115" y="108" fill="#C9D1D9" font-size="11">Especialista en LinkedIn | Ayudo profesionales a destacar</text>
+  <text x="115" y="124" fill="#8B949E" font-size="10">📍 Montevideo, Uruguay · 500+ conexiones</text>
+  <!-- Badge All-Star -->
+  <rect x="340" y="78" width="110" height="22" fill="rgba(63,185,80,0.15)" rx="11" stroke="rgba(63,185,80,0.4)" stroke-width="1"/>
+  <text x="395" y="93" text-anchor="middle" fill="#3FB950" font-size="10" font-weight="700">⭐ All-Star</text>
+  <!-- Separador -->
+  <line x1="24" y1="150" x2="456" y2="150" stroke="#21262D" stroke-width="1"/>
+  <!-- Extracto -->
+  <text x="24" y="172" fill="#F0F6FC" font-size="11" font-weight="700">Acerca de</text>
+  <text x="24" y="188" fill="#C9D1D9" font-size="10">Ayudo a profesionales y estudiantes a construir su presencia en LinkedIn</text>
+  <text x="24" y="202" fill="#C9D1D9" font-size="10">desde cero. Perfil optimizado, red estratégica y contenido que funciona.</text>
+  <!-- Experiencia -->
+  <text x="24" y="225" fill="#F0F6FC" font-size="11" font-weight="700">Experiencia</text>
+  <text x="24" y="241" fill="#C9D1D9" font-size="10">Instructor · LinkedIn desde Cero · 2024 — presente</text>
+  <!-- Tag ok -->
+  <rect x="24" y="258" width="180" height="16" fill="rgba(63,185,80,0.12)" rx="4" stroke="rgba(63,185,80,0.3)" stroke-width="1"/>
+  <text x="114" y="270" text-anchor="middle" fill="#3FB950" font-size="10" font-weight="600">✓ Perfil completo — aparecés en búsquedas</text>
+</svg>

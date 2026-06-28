@@ -1,0 +1,17 @@
+<svg viewBox="0 0 480 220" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Arial,sans-serif">
+  <rect width="480" height="220" fill="#161B22" rx="12"/>
+  <text x="24" y="36" fill="#8B949E" font-size="11" font-weight="700" letter-spacing="1">MENSAJE DE CONEXIÓN — QUÉ ESCRIBIR</text>
+  <!-- Mal ejemplo -->
+  <rect x="24" y="48" width="432" height="48" fill="rgba(247,129,102,0.06)" rx="8" stroke="rgba(247,129,102,0.25)" stroke-width="1"/>
+  <text x="38" y="67" fill="#F78166" font-size="10" font-weight="700">✗ Ignorado</text>
+  <text x="38" y="83" fill="#C9D1D9" font-size="11">"Hola, me gustaría agregarte a mi red profesional."</text>
+  <!-- Flecha -->
+  <text x="236" y="112" text-anchor="middle" fill="#378FE9" font-size="18">↓</text>
+  <!-- Buen ejemplo -->
+  <rect x="24" y="120" width="432" height="80" fill="rgba(10,102,194,0.08)" rx="8" stroke="rgba(10,102,194,0.3)" stroke-width="1"/>
+  <text x="38" y="139" fill="#378FE9" font-size="10" font-weight="700">✓ Se acepta y genera respuesta</text>
+  <text x="38" y="156" fill="#F0F6FC" font-size="11">"Hola [Nombre], vi tu comentario sobre [tema] y me</text>
+  <text x="38" y="172" fill="#F0F6FC" font-size="11">pareció muy acertado. Trabajo en [área similar] y</text>
+  <text x="38" y="188" fill="#F0F6FC" font-size="11">creo que podría ser bueno estar en contacto."</text>
+  <text x="38" y="200" fill="#8B949E" font-size="9">Máx. 300 caracteres · Mencioná algo concreto en común</text>
+</svg>

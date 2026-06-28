@@ -1,0 +1,15 @@
+<svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Arial,sans-serif">
+  <rect width="480" height="200" fill="#161B22" rx="12"/>
+  <text x="24" y="36" fill="#8B949E" font-size="11" font-weight="700" letter-spacing="1">TITULAR — LA LÍNEA MÁS IMPORTANTE</text>
+  <!-- Mal ejemplo -->
+  <rect x="24" y="48" width="432" height="52" fill="rgba(247,129,102,0.06)" rx="8" stroke="rgba(247,129,102,0.25)" stroke-width="1"/>
+  <text x="38" y="68" fill="#F78166" font-size="10" font-weight="700">✗ MAL</text>
+  <text x="38" y="86" fill="#C9D1D9" font-size="13" font-weight="600">"Estudiante de Administración en UDELAR"</text>
+  <text x="38" y="96" fill="#8B949E" font-size="9">Demasiado genérico — cualquiera puede escribir esto</text>
+  <!-- Buen ejemplo -->
+  <rect x="24" y="112" width="432" height="68" fill="rgba(63,185,80,0.06)" rx="8" stroke="rgba(63,185,80,0.25)" stroke-width="1"/>
+  <text x="38" y="132" fill="#3FB950" font-size="10" font-weight="700">✓ BIEN</text>
+  <text x="38" y="150" fill="#F0F6FC" font-size="12" font-weight="700">"Estudiante de Administración | Asistente contable</text>
+  <text x="38" y="166" fill="#F0F6FC" font-size="12" font-weight="700">en Estudio XYZ | Especializado en PYMES"</text>
+  <text x="38" y="180" fill="#8B949E" font-size="9">Cargo + dónde + qué te diferencia — en 220 caracteres</text>
+</svg>
